@@ -1,0 +1,19 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="icon" type="image/png" href="/../img/link-icon.png" sizes="640x640" />
+    <meta name="description" content="{{ site.description }}">
+
+	{% for post_css_link in site.css_links %}
+	<link rel="stylesheet" href="{{ post_css_link }}">
+	{% endfor %}
+
+    {% for post_js_link in site.post_js_links %}
+    <script type="text/javascript" src="{{ post_js_link }}"></script>
+    {% endfor %}
+
+    <!-- <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}"> -->
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+</head>

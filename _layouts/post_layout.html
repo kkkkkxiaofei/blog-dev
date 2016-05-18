@@ -1,0 +1,29 @@
+---
+layout: post_default
+---
+<div class="wrapper">
+	<div class="post">
+
+	  <header class="post-header">
+	    <h1 class="post-title">{{ page.title }}</h1>
+
+	    <!-- <p class="post-meta pull-right">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p> -->
+	  </header>
+	
+	  <article class="post-content">
+	  	<div class="meta-top">
+	  	  <a href="https://kkkkkxiaofei.github.io">
+	  	  	<div class="avatar">
+	  	  		<img thumbnail="90x90" quality="100" src="/img/author.png" alt="4ee77d0667a3">
+	  	  	</div>
+	  	  	<span style="color:#4094c7;">{{ site.title }}</span>
+	  	  	<span>{{ page.date | date: "%b %-d, %Y" }}</span>
+	  	  </a>
+	  	</div>
+	  	<div class="clearfix">
+	    {{ content }}
+	    </div>
+	  </article>
+
+	</div>
+</div>

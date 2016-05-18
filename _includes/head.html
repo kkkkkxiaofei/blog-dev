@@ -1,0 +1,20 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+    <meta name="description" content="{{ site.description }}">
+
+	{% for css_link in site.css_links %}
+	<link rel="stylesheet" href="{{ css_link }}">
+	{% endfor %}
+
+    {% for js_link in site.js_links %}
+    <script type="text/javascript" src="{{ js_link }}"></script>
+    {% endfor %}
+
+    <!-- <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}"> -->
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+</head>

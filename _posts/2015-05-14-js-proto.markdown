@@ -1,0 +1,38 @@
+---
+layout: post_layout
+title:  "理解Javascript中的__proto__"
+date:   2015-05-14 11:31PM
+categories: jekyll update
+type: 2
+summary: "__proto__可以看作是一个公开对象原型的内部访问器，大多数浏览器都实现了该属性。一个对象如何访问原型链上的方法，都是取决于__proto__的，因此暴露了这个属性则势必会为对象的安全性带来影响，所以MDN并不推荐随意改变一个对象的原型链，但是我们还是有必要了解它。"
+icon: "js-icon.jpg"
+---
+### Summary
+
+__proto__可以看作是一个公开对象原型的内部访问器，大多数浏览器都实现了该属性。一个对象如何访问原型链上的方法，都是取决于__proto__的，因此暴露了这个属性则势必会为对象的安全性带来影响，所以MDN并不推荐随意改变一个对象的原型链，但是我们还是有必要了解它。
+
+### Syntax
+
+{% highlight javascript %}
+
+function Circle() {
+  this.name = "circle";
+}
+Circle.prototype.area = function() { return 1.0; };
+
+var shape = {}, circle = new Circle();
+console.log(shape.__proto__); // Object {}
+// Set the object prototype
+shape.__proto__ = circle;
+// Get the object prototype
+console.log(shape.__proto__); // Circle {name: 'circle', area: function}
+
+{% endhighlight %}
+
+上述例子中的shape对象首先由Object构造而来，因为起原型链指向Object.在改变其原型链指向circle后，则shape成为了Circle的实例,因为shape具有原生属性name和原型方法area。
+
+需要注意的是，如果将上述代码改为`shape.__proto__ = Circle.prototype`的话，则shape.__prototype将输出Circle {area: function}.
+
+要理解__proto__,可以参考Object.creat()方法。
+
+

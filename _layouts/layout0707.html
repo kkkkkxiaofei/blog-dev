@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Pursue's blog</title>
+    <!-- <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> -->
+    <link href="/css/default.css" rel="stylesheet" type="text/css" media="all" />
+  </head>
+  <body>
+  <div id="wrapper" class="res-container">
+  	<div id="header-wrapper">
+  		<div id="header" class="container">
+  			<div id="logo">
+  				<h1><a href="#">Pursue</a></h1>
+  			</div>
+  			<div id="menu">
+  				<ul>
+  					<li class="active"><a href="#" accesskey="1" title="">Articles</a></li>
+  					<li><a href="photos" accesskey="2" title="">Photos</a></li>
+  					<li><a href="#" accesskey="3" title="">Musics</a></li>
+  					<li><a href="#" accesskey="4" title="">About Me</a></li>
+  					<li><a href="#" accesskey="5" title="">Contact Me</a></li>
+  				</ul>
+  			</div>
+  		</div>
+  	</div>
+  	<div id="page" class="container">
+  		<div id="content">
+  			<div id="box1" class="welcome">
+  				<h2 class="title"><a href="#">Welcome to Pursue's Blog</a></h2>
+  				<p class="introduce">Hello everyone, i'm <strong>Pursue</strong>.This is my blog for communicating with people who skill or like at programming.I don't think that coding can change the world(not as a geeker), but i feel that my life can be more meaningful under my keyboard.</p>
+  				<p class="sign">PS: I'm a slow walker, but i will never walk backward...</p>
+  			</div>
+  			<div>
+  				<ul class="style1">
+  					{% for post in site.posts %}
+  					     {% if post.type == 2 %}
+  					<li class="first">
+  						<div class="article-img">
+  							<img src="img/{{ post.icon }}" alt="" width="130" height="130" class="alignleft border" />
+  						</div>
+  						<div class="article-body">
+  							<h3>
+  								{{ post.title }}
+  							</h3>
+  							<p>
+  								<span class="article-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+  							</p>
+  							<p class="short-summary">{{ post.summary }}</p>
+  							<p class="read-more">
+  								<a href="{{ post.url | prepend: site.baseurl }}" class="button-style">Read More</a>
+  							</p>
+  						</div>
+  					</li>
+  					   {% endif %}
+  					{% endfor %}
+  				</ul>
+  			</div>
+  		</div>
+  		<div id="sidebar">
+  			<h2>Demos</h2>
+  			<ul class="style3">
+  				<li class="first">
+  					<p class="date">Jun 11, 2015</p>
+  					<p><a href="https://kkkkkxiaofei.github.io/lyric-demo">This a demo for playing music by using  HTML5 tag 'audio' -- It realize the lyric synchronizing and you can down it if you like.</a></p>
+  				</li>
+          <li class="first">
+  					<p class="date">Dec 2, 2015</p>
+  					<p><a href="https://github.com/kkkkkxiaofei/Dig-Knockout">Dig-Knockout is a tiny library which trys to show you how the popular library of MVVM works. Maybe you are confused for the mechanism because you have experienced many similar frameworks only by calling API.</a></p>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  	<div id="footer">
+  		<p>&copy; Untitled. All rights reserved. Design by <a href="https://github.com/kkkkkxiaofei">Pursue</a>.</p>
+  	</div>
+  </div>
+ </body>
+</html>
