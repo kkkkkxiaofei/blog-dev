@@ -452,19 +452,6 @@ ul.style3 .first .date
 	-o-animation-name: odd-slide;
 }
 
-@keyframes odd-slide {
-	0% {
-		margin-left: 100%;
-		width: 100%; 
-	}
-	75% {
-		margin-left: 25%;
-		width: 100%;
-	}
-	100% {
-		width: 100%;
-	}
-}
 
 @-webkit-keyframes odd-slide {
 	0% {
@@ -491,7 +478,7 @@ ul.style3 .first .date
 	-o-animation-name: even-slide;
 }
 
-@keyframes even-slide {
+@-webkit-keyframes even-slide {
 	0% {
 		margin-left: -100%;
 		width: 100%; 
@@ -505,16 +492,22 @@ ul.style3 .first .date
 	}
 }
 
-@-webkit-keyframes even-slide {
+#sidebar {
+	animation-duration: 2s;
+	-webkit-animation-duration: 2s;
+	-moz-animation-duration: 2s;
+	-o-animation-duration: 2s;
+	animation-name: col-slide;
+	-webkit-animation-name: col-slide;
+	-moz-animation-name: col-slide;
+	-o-animation-name: col-slide;
+}
+
+@-webkit-keyframes col-slide {
 	0% {
-		margin-left: -100%;
-		width: 100%; 
+		margin-top: 50%;
 	}
 	75% {
-		margin-left: -10%;
-		width: 100%;
-	}
-	100% {
-		width: 100%;
+		margin-top: 20%;
 	}
 }
