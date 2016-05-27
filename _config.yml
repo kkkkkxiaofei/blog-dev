@@ -3,10 +3,10 @@ title: Pursue
 author: Pursue
 email: 348564768@qq.com
 description: "This blog is ceated by Pursue"
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://kkkkkxiaofei.github.io" # the base hostname & protocol for your site
 name: "Pursue"
-twitter_username: jekyllrb
+twitter_username: kkkkkxiaofei
 github_username:  kkkkkxiaofei
 
 # Build settings
