@@ -5,7 +5,7 @@ date:   2016-08-16 19:09PM
 categories: jekyll update
 type: 2
 summary: "git pull -r origin branch是程序员最常用的Git指令之一了。可现今为了保证安全性，许多公司的Git服务器并不像访问Github那样容易，往往得通过VPN才能进行访问。那么问题来了，假如你在家里办公，连不上VPN肿么办？别懵逼，往下看。"
-icon: "thinking-icon.jpg"
+icon: "code-icon.jpg"
 ---
 
 ### 写在前面
@@ -55,7 +55,7 @@ git pull -r xiaoma master
 
 ### 场景二
 
-小宋成功pull到最新代码后，在自己的电脑上与小马结对编程完成了3个commit需要提交，这时才发现，自己是连不上`VPN`的，代码都是从小宋那里pull的，更何谈去push代码了。这时，聪明的小马又给小宋出了高招：“你可以把你的提交在本地做成patch文件，然后发给小王，他就能帮你push了。”
+小宋成功pull到最新代码后，在自己的电脑上与小马结对编程完成了3个commit需要提交，这时才发现，自己是连不上`VPN`的，代码都是从小宋那里pull的，更何谈去push代码呢？这时，聪明的小马又给小宋出了高招：“你可以把你的提交在本地做成patch文件，然后发给小王，他就能帮你push了。”
 
 于是在小宋的指导下，小马找到了小王。
 
