@@ -8,7 +8,7 @@ summary: "我们经常使用document.getElementById去获取DOM中的元素，�
 icon: "js-icon.jpg"
 ---
 
-### 写在前面
+### 1.写在前面
 
 我们经常使用document.getElementById去获取DOM中的元素，也会使用childNodes来获取子节点。那么Element和Node区别是什么？什么又是HTMLCollection,HTMLElement,和NodeList呢？
 
@@ -35,7 +35,8 @@ document.body.childNodes
 {% endhighlight %}
 
 结果:
-图图图图图图图图图图图图图图图图图图图图图图图图
+
+>![](/../img/element/nodelist.png)
 
 问题来了：
 
@@ -44,7 +45,7 @@ document.body.childNodes
 
 在回答上面两个问题之前，就有必要理解下什么是`Node`了。
 
-### Node vs Elemet
+### 2.Node vs Elemet
 
 以下摘自MDN:
 
@@ -60,7 +61,7 @@ document.body.childNodes
 
 利用`nodeType`可以查看所有类型，如下图：
 
-图图图图图图图图图图图图图图图图图图图图图图图图
+>![](/../img/element/nodetype.png)
 
 到这里，我想我们就可以解释上面两个问题了。
 
@@ -85,13 +86,22 @@ document.body.childNodes
 
 这下就顺理成章了，body的直系元素（3）＋ COMMENT_NODE(1) + TEXT_NODE(6) = 9
 
-### NodeList vs HTMLCollection
+### 3.NodeList vs HTMLCollection
 
 我们用`document.getElementById`找到了`Node`，又利用childNodes找到了`NodeList`，但我们操作DOM时往往不想操作`Node`(我只想操作元素Element)，那么如何获取ElementList呢？
 
 其实我们经常使用的`getElementsByXXX`返回的就是一个ElementList，只不过它的真实名字是`ElementCollection`。
 
 就像`NodeList`是`Node`的集合一样，`ElementCollection`也是`Element`的集合。但需要特别注意的是：
+
 ***NodeList和ElementCollcetion都不是真正的数组***
 
 如果`document.getElementsByTagName('a') instanceof Array`，那么必然是`false`。
+
+### 4.写在最后
+
+DOM(Document Object Model)简称文档对象模型，它是html和xml文档编程的接口，它将文档解析为树结构，这个树的根部就是`document`,而`document`的第一个子节点(childeNodes[0])就是html，才有了后面的一系列html元素。
+
+最后附一张DOM图，此刻再看这张图是不是觉得回味无穷咧。
+
+>![](/../img/element/dom.png)
