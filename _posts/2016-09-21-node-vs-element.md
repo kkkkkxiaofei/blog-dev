@@ -99,3 +99,14 @@ DOM(Document Object Model)简称文档对象模型，它是html和xml是文档�
 最后附一张DOM图，此刻再看这张图是不是觉得回味无穷咧。
 
 >![](/../img/element/dom.png)
+
+参考资料：
+
+1.[Node vs Element](.http://stackoverflow.com/questions/9979172/difference-between-node-object-and-element-object
+)
+
+2.[DOM](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model/Introduction)
+
+3.[Node](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)
+
+4.[NodeList](https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList)
