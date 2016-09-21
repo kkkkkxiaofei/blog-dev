@@ -44,7 +44,7 @@ document.body.childNodes
 
 在回答上面两个问题之前，就有必要理解下什么是`Node`了。
 
-### 什么是Node?
+### Node vs Elemet
 
 以下摘自MDN:
 
@@ -54,7 +54,11 @@ document.body.childNodes
 
 简单的说就是`Node`是一个基类，DOM中的`Element`，`Text`和`Comment`都继承于它。
 换句话说，`Element`，`Text`和`Comment`是三种特殊的`Node`，它们分别叫做`ELEMENT_NODE`,
-`TEXT_NODE`和`COMMENT_NODE`。利用`nodeType`可以查看所有类型，如下图：
+`TEXT_NODE`和`COMMENT_NODE`。
+
+***所以我们平时使用的html上的元素，即Element是类型为`ELEMENT_NODE`的`Node`。***
+
+利用`nodeType`可以查看所有类型，如下图：
 
 图图图图图图图图图图图图图图图图图图图图图图图图
 
@@ -80,3 +84,14 @@ document.body.childNodes
 
 
 这下就顺理成章了，body的直系元素（3）＋ COMMENT_NODE(1) + TEXT_NODE(6) = 9
+
+### NodeList vs HTMLCollection
+
+我们用`document.getElementById`找到了`Node`，又利用childNodes找到了`NodeList`，但我们操作DOM时往往不想操作`Node`(我只想操作元素Element)，那么如何获取ElementList呢？
+
+其实我们经常使用的`getElementsByXXX`返回的就是一个ElementList，只不过它的真实名字是`ElementCollection`。
+
+就像`NodeList`是`Node`的集合一样，`ElementCollection`也是`Element`的集合。但需要特别注意的是：
+***NodeList和ElementCollcetion都不是真正的数组***
+
+如果`document.getElementsByTagName('a') instanceof Array`，那么必然是`false`。
