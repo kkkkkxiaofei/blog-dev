@@ -19,9 +19,9 @@ icon: "js-icon.jpg"
   <body>
     <h1>China</h1>
     <!-- My comment ...  -->
-    <p>china is a popular country with...</p>
+    <p>China is a popular country with...</p>
     <div>
-      <button>See detail...</button>
+      <button>See details</button>
     </div>
   </body>
 </html>
@@ -52,10 +52,31 @@ document.body.childNodes
 
 >The following interfaces all inherit from Node its methods and properties: Document, Element, CharacterData (which Text, Comment, and CDATASection inherit), ProcessingInstruction, DocumentFragment, DocumentType, Notation, Entity, EntityReference.
 
-简单的说就是`Node`是一个基类，DOM中的`Element`，`Text`和`Comment`都继承于它。换句话说，`Element`，`Text`和`Comment`是三种特殊的`Node`，它们分别叫做`ELEMENT_NODE`,`TEXT_NODE`和`COMMENT_NODE`。利用`nodeType`可以查看所有类型，如下图：
+简单的说就是`Node`是一个基类，DOM中的`Element`，`Text`和`Comment`都继承于它。
+换句话说，`Element`，`Text`和`Comment`是三种特殊的`Node`，它们分别叫做`ELEMENT_NODE`,
+`TEXT_NODE`和`COMMENT_NODE`。利用`nodeType`可以查看所有类型，如下图：
 
 图图图图图图图图图图图图图图图图图图图图图图图图
 
+到这里，我想我们就可以解释上面两个问题了。
+
+实际上`Node`表示的是DOM树的结构，在html中，节点与节点之间是可以插入文本的，这个插入的空隙就是`TEXT_NODE`，即：
+
+{% highlight html %}
+<body>
+    we can put text here 1...
+    <h1>China</h1>
+    we can put text here 2...
+    <!-- My comment ...  -->
+    we can put text here 3...
+    <p>China is a popular country with...</p>
+    we can put text here 4...
+    <div>
+      <button>See details</button>
+    </div>
+    we can put text here 5 ...
+</body>
+{% endhighlight %}
 
 
-
+这下就顺理成章了，body的直系元素（3）＋ COMMENT_NODE(1) + TEXT_NODE(6) = 9
