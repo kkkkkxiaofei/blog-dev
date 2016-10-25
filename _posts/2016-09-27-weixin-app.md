@@ -1,7 +1,7 @@
 ---
 layout: post_layout
 title:  "微信小程序，你怎么看？"
-date:   2016-09-27 21:38AM
+date:   2016-09-27 21:38PM
 categories: jekyll update
 type: 2
 summary: "微信小程序自内测以来已经刷爆了整个IT圈，至少各大论坛(segmentfault，掘金，CSDN等)的前端板块已经被霸屏。"
