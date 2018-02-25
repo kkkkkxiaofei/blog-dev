@@ -33,13 +33,167 @@ icon: "js-icon.jpg"
 
 ### 4.如何实现组件化
 
-demo：找一个有好几部分类似的部分的ui
+我就以搜房网为例(最近房价居高不下，各个大佬还在吹各种牛x说房价不久后将白菜价，我顺便mark下看以后打谁的脸)进行demo分析。随手截图如下：
 
-1.分析页面布局，布局就是组建划分的依据
-2.提取业务相似性的地方
-3.抽离组建
- 3.1hard code抽离方式，只是把层次简明了，没有实现复用
- 3.2将参数提取出来，作为命名为具有业务意义的props，这一步还没有完，看似是一个组件，并且也复用了，但是只能在此文件内复用（目标是在整个应用里复用）
- 3.3将参数提取出来后，明明为非业务意义，而是和组件本身相关的上下文意义的词汇，如content，data，list，layout等
- 3.4根据特定的需求，将组件进行扩展，比如可以自定义某一部分slot让用户传入，或者根据配置生成或者展示组件部分功能
- 3.5记住，所有的一切都是基于对业务场景的掌握，来统一设计组件的，所以必须对自己开发的应用当前和未来有清晰的认识
+> ![](/../img/component/demo1.png)
+
+ - 1.分析页面布局
+
+> ![](/../img/component/demo2.png)
+
+ 从大体上来看，可以分为顶部搜索，中间内容展示。而中间内容又氛围part1，2，3三种类型。由于篇幅问题，本文只分析part1，2，3
+
+part中又可以分为header(title + link)和content(每个part不一样)
+
+> ![](/../img/component/demo3.png)
+
+ - 2.初步设计
+
+ 如果没有经过任何设计，也许会出现下面的代码：
+
+{% highlight html %}
+
+<template>
+  <div id="app">
+    <div class="nav-search">...</div>
+    <div class="panel">
+      <div class="part1 left">
+        <div>
+          <span>万科城润园楼盘动态</span>
+          <a href="">更多动态>></a>
+        </div>
+        <div>这里是每个part里面的具体内容</div>
+      </div>
+      <div class="part2 right">
+        <div>
+          <span>楼盘故事</span>
+          <a href="">更多>></a>
+        </div>
+        <div>这里是每个part里面的具体内容</div>
+      </div>
+      <div class="part3">
+        <div>
+          <span>万科城润园户型</span>
+          <a href="">二居(1)</a>
+          <a href="">三居(4)</a>
+          <a href="">四居(3)</a>
+          <a href="">更多>></a>
+        </div>
+        <div>这里是每个part里面的具体内容</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+{% endhighlight %}
+
+其中我省略了大部分的细节实现，代码量应该是这里的数倍。
+这段代码有几个问题：
+
+1.part1，2，3的结构很类似，有些许重复
+
+2.实际的代码量将会很多，维护起来也很难
+
+- 3.化繁为简
+
+首先我们可以将part1，2，3进行分离，这样就独立出来三个文件，那么结构上将会非常清晰
+
+{% highlight html %}
+
+<template>
+  <div id="app">
+    <div class="nav-search">...</div>
+    <div class="panel">
+      <part1 />
+      <part2 />
+      <part3 /> 
+  </div>
+</template>
+
+{% endhighlight %}
+
+这有些类似将一个大函数逐步拆解成几部分的过程，不难想象part1，2，3中的代码，必然是适用性很差，确切的说只有这里能够引用。
+
+- 4.组件抽象
+
+仔细观察part1，2，3，正如我上面所说，它们其实是具有很高的相似相似性的：又具有一个一样的外层border并附有shadow，都具有抬头和显示更多，各自内容部分暂不细说的话，这三个完全就是一模一样。
+
+如此，我们将具有高度相似的业务数据进行抽离，实现组件的抽象。
+
+part.vue
+
+{% highlight html %}
+
+<template>
+  <div class="part">
+    <div class="hearder">
+      <span>{{ title }}</span>
+      <a :href="linkForMore">{{ showMore || '更多>>' }}</a>
+    </div>
+    <slot name="content" />
+  </div>
+</template>
+
+{% endhighlight %}
+
+我们将part内可以抽象的数据都做成了props，包括利用slot去做模版，同时`showMore || '更多>>'`也考虑到了part1的link名字和其他几个part不一致的情况。
+
+这样一来app.vue就更加清晰化
+
+{% highlight html %}
+
+<template>
+  <div id="app">
+    <div class="nav-search">...</div>
+    <div class="panel">
+      <part
+        title="万科城润园楼盘动态"
+        linkForMore="#1"
+        showMore="更多动态>>"
+      >
+        <div slot="content">这里是part1里面的具体内容</div>
+      </part>
+      <part
+        title="楼盘故事"
+        linkForMore="#2"
+      >
+        <div slot="content">这里是part2里面的具体内容</div>
+      </part>
+      <part
+        title="万科城润园户型"
+        linkForMore="#3"
+      >
+        <div slot="content">这里是part3里面的具体内容</div>
+      </part>
+  </div>
+</template>
+
+{% endhighlight %}
+
+
+基于上面的demo有几点需要说明一下：
+
+1.三个part中的部分UI差异应该在哪里定义？
+
+比如三个part的宽度都不一样，并且part1和part2可能要需要进行浮动。
+
+必须要记住，这种差异并不是组件本身的，<part />的设计本身应该是无浮动并且宽度占100%的，至于占谁的100%，那就取决于谁引用它，至于向左还是向右浮动，同样也取决于引用它的container需要自己去定义，在上面的代码中，app.vue就应该是part的container，app想要的是一个左浮动且宽度为80%的part（part1），有浮动且宽度为20%的part（part2）和一个宽度为100%的part（part3），但它们都是part，所以应该由app来设置这些差异。
+
+记住这一点，将给你的抽象和扩展但来事半功倍的效果。
+
+2.三个part中的数据差异应该在哪里定义？
+
+比如part3中，其他的part只有一个类似`更多>>`的link，但是它却有多个。
+
+这里我推荐将这种差异体现在组件内部，只是如何设计方法也很多：比如可以将link数组化为links；也比如可以将`更多>>`看作是一个default的link，而多余的部分则是用户自定义的特殊link，这两者合并组成了links，而用户自定义的默认是没有的，需要引用组件时进行传入。
+
+总之，只要有数据差异化，就应该结合组件本身和业务上下文将差异合理的消除在内部。
+
+3.注意组件内数据的命名方式
+
+一个通用的，可扩展性高的组件，必然是有非常合理的命名的，比如观察一些组件库的命名，总会出现类似list,data,content,name,key,callback,className等名词，绝对不会出现我们系统中的类似iterationList, projectName等业务名词，这些名词和任一产品和应用都无关，它与自身抽象的组件有关，只表明组件内部的数据含义，偶尔也会代表其结构，所以只有这样，才能让用户通用。我们在设计时，也需要遵循这种，但库往往是想让广大开发者通用，而我们可以降低scope，做到在整个app内通用即可。
+
+### 写在最后
+
+你也许会认为这样抽象没有太大的必要性，毕竟它只是一段静态UI（pure component），但任何的设计都是基于一定的复杂度才产生出来的，大部分情况下这种设计都是需要将逻辑代码也重构在内的，不光只是UI（如antd, element-ui等）。在一个大型项目中这种组件化的抽象设计是很有必要的，不仅是增加了复用性提高了工作效率，从某种程度上来说也反应了程序员对业务和产品设计的理解。一旦有问题或者需要扩展时，你就会发现之前的设计是做么的make sense。
